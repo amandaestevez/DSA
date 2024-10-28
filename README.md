@@ -4,36 +4,38 @@
 ## 1. Check if a number is a Palindrome
 
 ```java
-package org.example;
+// Set up
+// 1. Create Maven Project
+package org.example; //2. Package declaration
 
-import java.util.Scanner;
+import java.util.Scanner; //3. Import scanner to read user input
 
-public class PalindromeChecker {
+public class PalindromeChecker { //4. Class declaration
+    // Solution
+    public static boolean isPalindrome(int number) { // 1. Create checker method.
+        int originalNumber = number; // 2. Storage user input.
+        int reversedNumber = 0;      // 3. Create pointer
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number to check if it's a palindrome: ");
-        int number = scanner.nextInt();
-        scanner.close();
-
-        if (isPalindrome(number)) {
-            System.out.println(number + " is a palindrome.");
-        } else {
-            System.out.println(number + " is not a palindrome.");
+        while (number != 0) {        // 4. Create a while loop to check user input.
+            int digit = number % 10; // 5. Extract the last digit of 'number' and store it in the variable 'digit'
+            reversedNumber = reversedNumber * 10 + digit;  // 6. Append 'digit' to the reversed number.
+            number /= 10;  // 7. Remove the last digit from the original number
         }
+
+        return originalNumber == reversedNumber; // 8. Check if 'originalNumber' and 'reversedNumber' are equal.
     }
 
-    public static boolean isPalindrome(int number) {
-        int originalNumber = number;
-        int reversedNumber = 0;
+    public static void main(String[] args) { // Final Step: Execute the program
+        Scanner scanner = new Scanner(System.in); // 1. Instantiate the Scanner class
+        System.out.print("Enter a number to check if it's a palindrome: "); // 2. Ask for user input
+        int number = scanner.nextInt(); // 3. Store input into a variable 'number' that accepts only integers
+        scanner.close(); // 4. Finalize the scanner instance.
 
-        while (number != 0) {
-            int digit = number % 10;
-            reversedNumber = reversedNumber * 10 + digit;
-            number /= 10;
+        if (isPalindrome(number)) { // 5. Create the conditional that checks the 'isPalindrome' method's return.
+            System.out.println(number + " is a palindrome."); // 6. Create the output for 'true'.
+        } else {
+            System.out.println(number + " is not a palindrome.");  // 7. Create the output for 'false'.
         }
-
-        return originalNumber == reversedNumber;
     }
 }
 
@@ -123,6 +125,119 @@ public class Fibonacci {
     public static void main(String[] args) {
         int numberOfTerms = 10; // Change this value for more or fewer terms
         printFibonacci(numberOfTerms);
+    }
+}
+
+```
+
+## 4. Print the Second-Highest Number in an Array
+
+```java
+package org.example;
+
+/**
+ * Utility class to find the second-highest number in an integer array.
+ */
+public class SecondHighestFinder {
+
+    /**
+     * Finds and returns the second-highest number in an integer array.
+     *
+     * @param numbers the integer array
+     * @return the second-highest number in the array
+     * @throws IllegalArgumentException if the array has fewer than two elements
+     */
+    public static int findSecondHighest(int[] numbers) {
+        if (numbers == null || numbers.length < 2) {
+            throw new IllegalArgumentException("Array must contain at least two elements");
+        }
+
+        int highest = Integer.MIN_VALUE;
+        int secondHighest = Integer.MIN_VALUE;
+
+        for (int num : numbers) {
+            if (num > highest) {
+                secondHighest = highest;
+                highest = num;
+            } else if (num > secondHighest && num < highest) {
+                secondHighest = num;
+            }
+        }
+        return secondHighest;
+    }
+
+    /**
+     * Main method to test the findSecondHighest method.
+     *
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
+        int[] numbers = {1, 5, 2, 8, 3, 8, 6}; //indicates the variable only takes an array of integer numbers
+        System.out.println("The second highest number is: " + findSecondHighest(numbers));
+    }
+}
+```
+
+## 5. Reverse an Array
+
+```java
+package org.example;
+
+/**
+ * A class that provides a method to reverse an array of integers.
+ */
+public class ArrayReverser {
+
+    /**
+     * Reverses the given array of integers in place.
+     *
+     * @param numbers the array of integers to be reversed
+     */
+    public void reverseArray(int[] numbers) {
+        int left = 0; // Starting index
+        int right = numbers.length - 1; // Ending index
+
+        // Swap elements until the middle of the array is reached
+        while (left < right) {
+            // Swap the elements at the left and right indices
+            int temp = numbers[left];
+            numbers[left] = numbers[right];
+            numbers[right] = temp;
+
+            // Move towards the middle
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * The main method to test the ArrayReverser class.
+     *
+     * @param args command line arguments (not used)
+     */
+    public static void main(String[] args) {
+        ArrayReverser reverser = new ArrayReverser(); // Create an instance of ArrayReverser
+        int[] numbers = {1, 5, 2, 8, 3, 8, 6}; // Initialize the array
+
+        System.out.println("Original array:");
+        printArray(numbers); // Print original array
+
+        reverser.reverseArray(numbers); // Reverse the array
+
+        System.out.println("Reversed array:");
+        printArray(numbers); // Print reversed array
+    }
+
+    /**
+     * Helper method to print the elements of the array.
+     *
+     * @param numbers the array of integers to be printed
+     */
+    private static void printArray(int[] numbers) {
+        for (int number : numbers) {
+            System.out.print(number + " ");
+        }
+        System.out.println(); // New line after printing the array
     }
 }
 
